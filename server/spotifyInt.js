@@ -143,22 +143,24 @@ module.exports.getArtists = function(tracks, callback) {
   var artistPromises = [];
   var artists = {};
   tracks.forEach(function(trackListings) {
-    trackListings.items.forEach(function(item) {
-      item.track.artists.forEach(function(artist) {
-        if (!artists[artist.name]) {
-          artists[artist.name] = {
-            myCount: 1
-          };
-          var artistOptions = {
-            url: 'https://api.spotify.com/v1/artists/' + artist.id,
-            json: true
-          };
-          artistPromises.push(util.buildPromise(artistOptions));
-        } else {
-          artists[artist.name].myCount++;
-        }
+    if(trackListings.items) {    
+      trackListings.items.forEach(function(item) {
+        item.track.artists.forEach(function(artist) {
+          if (!artists[artist.name]) {
+            artists[artist.name] = {
+              myCount: 1
+            };
+            var artistOptions = {
+              url: 'https://api.spotify.com/v1/artists/' + artist.id,
+              json: true
+            };
+            artistPromises.push(util.buildPromise(artistOptions));
+          } else {
+            artists[artist.name].myCount++;
+          }
+        });
       });
-    });
+    }
   });
   Promise.all(artistPromises)
     .then(function(artistObjs) {
