@@ -4,7 +4,22 @@
   margin: 0 auto;
   padding-top: 70px;
 }
+body {
+  font-family: 'Raleway', sans-serif;
+}
 
+h1 {
+  font-family: 'Megrim', cursive;
+  font-size: 48px;
+  text-align: center;
+}
+h2 {
+  font-size: 24px;
+  text-align: center;
+}
+h3 {
+  font-size: 18px;
+}
 /*.btn {
   display: block;
   margin: 0 auto;
@@ -26,11 +41,16 @@
   width: 250px;
 }
 
+.sglogo {
+  margin: auto;
+  height: 50px;
+}
+
 .imageContainer {
   width : 250px;
   height : 250px;
   overflow: hidden;
-  float:left;
+  margin: auto;
 }
 
 .showListing {
