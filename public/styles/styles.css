@@ -20,6 +20,11 @@ h2 {
 h3 {
   font-size: 18px;
 }
+h4 {
+  font-size: 14px;
+  font-style: italic;
+  margin-left: 15px;
+}
 /*.btn {
   display: block;
   margin: 0 auto;
@@ -39,11 +44,6 @@ h3 {
 }
 .artistImg {
   width: 250px;
-}
-
-.sglogo {
-  margin: auto;
-  height: 50px;
 }
 
 .imageContainer {
