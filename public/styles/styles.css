@@ -5,16 +5,18 @@
   padding-top: 70px;
 }
 
-.btn {
+/*.btn {
   display: block;
   margin: 0 auto;
-}
+}*/
+
 .loginBtn {
   width: 150px;
   height: 150px;
   border: none;
   border-radius: 150px;
-  background-image: url('assets/spotify.jpg');
+  background-color: none;
+  background-image: url('../assets/spotify.jpg');
 }
 
 .loadingGif {
