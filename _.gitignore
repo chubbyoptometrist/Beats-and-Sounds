@@ -1,5 +1,11 @@
 ### node etc ###
 
+.gitignore
+.DS_Store
+public/bower_components
+node_modules
+server/config.js
+
 # Logs
 logs
 *.log
