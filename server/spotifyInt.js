@@ -3,7 +3,7 @@ var Promise = require('bluebird');
 var request = require('request');
 
 var util = require('./utils.js');
-var supersecret = require('./config.js') || undefined;
+// var supersecret = require('./config.js') || undefined;
 
 var client_id = process.env.SPOTIFY_CLIENT_ID || supersecret.client_id;
 var client_secret = process.env.SPOTIFY_CLIENT_SECRET || supersecret.client_secret;

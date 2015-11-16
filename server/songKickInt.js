@@ -1,6 +1,6 @@
 var request = require('request');
 
-var supersecret = require('./config.js') || undefined;
+// var supersecret = require('./config.js') || undefined;
 var util = require('./utils');
 
 var query = require('./db/dbHelper.js');
