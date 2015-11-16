@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser');
 var context = require('request-context');
 
 var spotify = require('./spotifyInt.js');
-var songkick = require('./songkickInt.js');
+var songkick = require('./songKickInt.js');
 var util = require('./utils.js');
 var requestHandler = require('./requestHandler.js');
 
@@ -59,6 +59,7 @@ app.use(function(req, res, next) {
 });
 
 
+
 var workerJob = new CronJob('0 1 * * 5', function(){
     // This runs every 30
     stachanov.deleteExpiredEvents();
@@ -72,7 +73,7 @@ var workerJob = new CronJob('0 1 * * 5', function(){
   timeZone = 'America/Los_Angeles' /* Time zone of this job. */
 );
 
-console.log('Listening on 8888');
-app.listen(8888);
-
 module.exports = app;
+var port = process.env.PORT || 8888;
+console.log('Listening on' + port);
+app.listen(port);

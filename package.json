@@ -3,9 +3,14 @@
   "name": "BeatsandSounds",
   "description": "",
   "version": "0.0.1",
+  "engines": {
+    "node": "4.2.x",
+    "npm": "3.1.x"
+  },
   "main": "app.js",
   "dependencies": {
     "bluebird": "^3.0.5",
+    "bower": "^1.6.5",
     "browserify": "^12.0.1",
     "chai": "^3.4.1",
     "cldr": "^3.2.0",
@@ -23,7 +28,8 @@
     "underscore": "^1.8.3"
   },
   "scripts": {
+    "test": "mocha server/servertest.js",
     "start": "node server/app.js",
-    "test": "mocha server/servertest.js"
+    "postinstall": "./node_modules/bower/bin/bower install"
   }
 }

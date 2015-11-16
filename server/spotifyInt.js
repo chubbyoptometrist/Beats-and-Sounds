@@ -3,12 +3,12 @@ var Promise = require('bluebird');
 var request = require('request');
 
 var util = require('./utils.js');
-var supersecret = require('./config.js');
+var supersecret = require('./config.js') || undefined;
 
-//client_id and client_secret are stored in config file so they won't appear on GitHub
-var client_id = supersecret.client_id;
-var client_secret = supersecret.client_secret;
-var redirect_uri = 'http://localhost:8888/callback';
+var client_id = process.env.SPOTIFY_CLIENT_ID || supersecret.client_id;
+var client_secret = process.env.SPOTIFY_CLIENT_SECRET || supersecret.client_secret;
+var redirect_uri = process.env.DOMAIN || 'http://localhost:8888/callback';
+
 
 module.exports.authorize = function(req, res) {
   var stateKey = 'spotify_auth_state';

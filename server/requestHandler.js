@@ -2,7 +2,7 @@ var querystring = require('querystring');
 var context = require('request-context');
 
 var spotify = require('./spotifyInt.js');
-var songkick = require('./songkickInt.js');
+var songkick = require('./songKickInt.js');
 var util = require('./utils.js');
 
 var query = require('./db/dbHelper.js');

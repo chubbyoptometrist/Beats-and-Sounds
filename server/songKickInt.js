@@ -1,10 +1,10 @@
 var request = require('request');
 
-var supersecret = require('./config.js');
+var supersecret = require('./config.js') || undefined;
 var util = require('./utils');
 
 var query = require('./db/dbHelper.js');
-var api_key = supersecret.api_key;
+var api_key = process.env.SONGKICK_API_KEY || supersecret.api_key;
 
 var SF_METRO_ID = 26330;
 
