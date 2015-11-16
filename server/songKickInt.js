@@ -1,6 +1,10 @@
 var request = require('request');
 
-// var supersecret = require('./config.js') || undefined;
+// supersecret exists only in non-production
+if (!process.env.SONGKICK_API_KEY) {
+  var supersecret = require('./config.js'); 
+}; 
+
 var util = require('./utils');
 
 var query = require('./db/dbHelper.js');

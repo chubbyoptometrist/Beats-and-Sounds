@@ -3,7 +3,11 @@ var Promise = require('bluebird');
 var request = require('request');
 
 var util = require('./utils.js');
-// var supersecret = require('./config.js') || undefined;
+
+// supersecret exists only in non-production
+if (!process.env.SONGKICK_API_KEY) {
+  var supersecret = require('./config.js'); 
+}; 
 
 var client_id = process.env.SPOTIFY_CLIENT_ID || supersecret.client_id;
 var client_secret = process.env.SPOTIFY_CLIENT_SECRET || supersecret.client_secret;
