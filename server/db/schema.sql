@@ -6,10 +6,10 @@
  */
 
 -- FOR DEPLOYMENT: COMMENT THE LINE BELOW!!
-DROP DATABASE IF EXISTS `chubbySongDB`;
-CREATE DATABASE chubbySongDB;
+-- DROP DATABASE IF EXISTS `chubbySongDB`;
+-- CREATE DATABASE chubbySongDB;
 
-USE chubbySongDB;
+USE heroku_848ad82f4a7c134;
  
  
 -- ---
