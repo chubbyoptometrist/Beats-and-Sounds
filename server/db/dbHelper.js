@@ -20,7 +20,6 @@ var queryAsync = function(queryString, queryParams) {
 }
 
 module.exports.insertHandler = function(concerts) {
-
   var concertPromises = [];
 
   concerts.event.forEach(function(concert) {

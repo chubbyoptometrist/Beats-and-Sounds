@@ -6,7 +6,7 @@ First of all check the 'SQL Schema.png' image in this folder to have a general i
 
 You can see the complete anatomy of the db inside schema.sql
 
-## Input data
+## <a name="input"></a> Input data
 
 The main purpose of this db is storing data that we get from songkick.
 We are implementing thid db because the songkick api is a little bit crappy, infact it's impossible to specify what artist you want when you do a 'metro area's upcoming events' request. This means that the JSON that SK is sending back is HUGE (around 15 seconds to receive it!).
@@ -140,6 +140,12 @@ SELECT c.concert_id,
   INNER JOIN metroarea AS m ON (c.metroarea_id = m.sk_id)
   INNER JOIN venue AS v ON (c.venue_id = v.sk_id);
 ```
+
+### Mantaining the db 
+As I already said in the [input data](#input) chapter, we are using our DB to store Songkick data. This allows our website to be faster and more efficient, but carries some more complications that must be handled. The "problem" is that we cannot simply rely on Songkick for fresh, updated data: what we have to do is keep our DB updated constantly to be sure to always serve fresh data.
+
+##### Meet Stachanov
+[Stachanov](https://en.wikipedia.org/wiki/Alexey_Stakhanov) is our web worker, a script run using cron that is constantly perform some actions to remove old entries, check when the last fetch from Songkick happen for each metro area and based on that decides what need to be updated and refreshed.
 
 ### Handling asynchronousity
 
