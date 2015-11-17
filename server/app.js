@@ -9,6 +9,10 @@ var songkick = require('./songkickInt.js');
 var util = require('./utils.js');
 var requestHandler = require('./requestHandler.js');
 
+// required for automating webworker
+var CronJob = require('cron').CronJob;
+var stachanov = require('./worker/dbManager.js');
+
 var app = express();
 
 app.use(express.static(__dirname + '/../public'))
@@ -53,6 +57,20 @@ app.get('/logout', util.checkToken,
 app.use(function(req, res, next) {
   res.status(404).send('Not a valid endpoint');
 })
+
+
+var workerJob = new CronJob('*/30 * * * * *', function(){
+    // This runs every 30
+    stachanov.deleteExpiredEvents();
+    stachanov.updateOldByAreas();
+    //workerJob.stop();
+  }, function () {
+    /* This function is executed when the job stops */
+    console.log('Cron stopped!')
+  },
+  true, /* Start the job right now */
+  timeZone = 'America/Los_Angeles' /* Time zone of this job. */
+);
 
 console.log('Listening on 8888');
 app.listen(8888);
