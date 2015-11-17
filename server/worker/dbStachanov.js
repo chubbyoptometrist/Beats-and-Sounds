@@ -16,17 +16,17 @@ var q = {
   updateAreasDate: "UPDATE metroarea SET last_update = NOW() WHERE last_update + INTERVAL " + frequency + " < NOW()"
 };
 
-var deleteExpiredEvents = function(){
+var deleteExpiredEvents = function() {
   db.query(q.deleteOldJoin, [], function(err, rows, fields) {
     if (err) throw err;
     db.query(q.deleteOlderThanToday, [], function(err, rows, fields) {
-      if(err) throw err;
+      if (err) throw err;
       console.log(rows);
     });
   });
 };
 
-var updateOldByAreas = function(){
+var updateOldByAreas = function() {
   db.query(q.findAreasToUpdate, [], function(err, rows, fields) {
     if (err) throw err;
     var concertsPromises = [];
@@ -38,11 +38,11 @@ var updateOldByAreas = function(){
       .then(function() {
         console.log('UPDATE DONE!');
         db.query(q.updateAreasDate, [], function(err, rows, fields) {
-          if(err) throw err;
+          if (err) throw err;
           //console.log(rows);
         });
       })
-      .catch(function (err) {
+      .catch(function(err) {
         console.log('ERR', err);
       });
   });
