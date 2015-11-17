@@ -189,7 +189,8 @@ module.exports.getArtists = function(tracks) {
           if (!artists[artist.name.toUpperCase()]) {
             artists[artist.name.toUpperCase()] = {
               //myCount keeps track of how many times an artist appears in your playlists
-              myCount: 1
+              myCount: 1,
+              info: artist
             };
             var artistOptions = {
               url: 'https://api.spotify.com/v1/artists/' + artist.id,

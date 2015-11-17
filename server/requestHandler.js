@@ -89,7 +89,6 @@ module.exports.myArtists = function(req, res) {
 
   spotify.getMyArtists(token)
     .then(function(artists) {
-
       return module.exports.collectConcerts(location, artists);
     }).then(function(myShows) {
       res.status(200).json(myShows);
