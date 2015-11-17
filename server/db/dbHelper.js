@@ -93,8 +93,7 @@ module.exports.updateUser = function(access_token, refresh_token, userID) {
 
 module.exports.fetchToken = function(userID) {
   var params = [userID];
-  var queryString = "SELECT * FROM user WHERE userID=?"
-  return queryAsync(queryString, params);
+  return queryAsync(q.userFetch, params);
 };
 
 // module.exports.findUserInDatabase = function(userID) {
