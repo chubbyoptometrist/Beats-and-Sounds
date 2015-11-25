@@ -57,12 +57,14 @@ module.exports.myConcerts = function(req, res) {
       return spotify.getTracks(token, userID, playlists);
     }).then(function(tracks) {
       //tracks is enough information to get names of the artists, but in order to get the images used on the front end we need to make another request to Spotify for the full artist object
-      return spotify.getArtists(tracks);
-    }).then(function(artists) {
+      var artists = spotify.extractArtists(tracks);
       return module.exports.collectConcerts(location, artists);
     }).then(function(myShows) {
-      res.status(200).json(myShows);
-    });
+      return spotify.getExtendedArtistInfo(myShows);
+    }).then(function(myShows) {
+      console.log(myShows, "huh?")
+      res.status(200).json(myShows)
+    })
 
 };
 
