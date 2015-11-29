@@ -62,7 +62,6 @@ module.exports.myConcerts = function(req, res) {
     }).then(function(myShows) {
       return spotify.getExtendedArtistInfo(myShows);
     }).then(function(myShows) {
-      console.log(myShows, "huh?")
       res.status(200).json(myShows)
     })
 
