@@ -179,7 +179,7 @@ module.exports.getTracks = function(token, userID, playlists) {
 //https://developer.spotify.com/web-api/get-artist/
 //The response from getTracks (above) includes a limited artist object, but we need to make a request for the full artist object to get the images used on the front end
 //A token isn't needed for this request since we aren't accessing user-specific information
-module.exports.getArtists = function(tracks) {
+module.exports.extractArtists = function(tracks) {
   var artistPromises = [];
   var artists = {};
   tracks.forEach(function(trackListings) {
@@ -192,11 +192,6 @@ module.exports.getArtists = function(tracks) {
               myCount: 1,
               info: artist
             };
-            var artistOptions = {
-              url: 'https://api.spotify.com/v1/artists/' + artist.id,
-              json: true
-            };
-            artistPromises.push(util.buildPromise(artistOptions));
           } else {
             artists[artist.name.toUpperCase()].myCount++;
           }
@@ -204,12 +199,27 @@ module.exports.getArtists = function(tracks) {
       });
     }
   });
-  return Promise.all(artistPromises)
-    .then(function(artistObjs) {
-      artistObjs.forEach(function(artistObj) {
-        artists[artistObj.name.toUpperCase()].info = artistObj;
-      });
-      return artists;
+  return artists;
+}
+module.exports.getExtendedArtistInfo = function(myShows) {
+  var artistPromises = [];
+  myShows.forEach(function(show) {
+    var artistOptions = {
+      url: 'https://api.spotify.com/v1/artists/' + show.info.id,
+      json: true
+    };
+    artistPromises.push(util.buildPromise(artistOptions));
+  });
+  return Promise.all(artistPromises).then(function(artistObj) {
+    artistObj.forEach(function(artist) {
+      for (var i = 0; i < myShows.length; i++) {
+        var concert = myShows[i];
+        if (concert.info.id === artist.id) {
+          concert.info = artist;
+          break;
+        }
+      }
     });
-
+    return myShows;
+  });
 };
