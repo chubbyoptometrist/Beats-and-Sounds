@@ -2,7 +2,7 @@ var expect = require('chai').expect;
 var request = require('supertest');
 var spotify = require('./spotifyInt.js');
 var query = require('./db/dbHelper.js');
-var songkick = require('./songkickInt.js');
+var songkick = require('./songKickInt.js');
 var app = require('./app.js');
 
 //Test account :
