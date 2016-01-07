@@ -1,38 +1,63 @@
 // HANDLES USER AUTHENTICATION ============================
 angular.module('beatssounds.services', [])
-  .factory('auth', function($http, $location) {
+  .factory('auth', function($http, $location, $timeout) {
     var locationData = JSON.parse(localStorage.getItem("location"));
+    var playListInfo;
+    var artistInfo;
+
+    var removeDuplicates = function(shows) {
+      var seen = {}
+      for (var i = 0; i < shows.length; i++) {
+        if (seen[shows[i].show.concert_name]) {
+          shows.splice(i, 1);
+        } else {
+          seen[shows[i].show.concert_name] = true;
+        }
+      }
+      return shows
+    };
+
     var getPlaylists = function() {
-      return $http({
-          method: 'GET',
-          url: '/myconcerts',
-          params: {
-            location: locationData
-          }
-        })
-        .then(function(resp) {
-          if (resp.data === "go to login") {
-            $location.path('/loginpage');
-          } else {
-            return resp.data;
-          }
-        });
+      if (playListInfo === undefined) {
+        return $http({
+            method: 'GET',
+            url: '/myconcerts',
+            params: {
+              location: locationData
+            }
+          })
+          .then(function(resp) {
+            if (resp.data === "go to login") {
+              $location.path('/loginpage');
+            } else {
+              playListInfo = removeDuplicates(resp.data);
+              return playListInfo
+            }
+          });
+      } else {
+        return Promise.resolve(playListInfo);
+      }
     };
     var getFollowing = function() {
-      return $http({
-          method: 'GET',
-          url: '/myartists',
-          params: {
-            location: locationData
-          }
-        })
-        .then(function(resp) {
-          if (resp.data === "go to login") {
-            $location.path('/loginpage');
-          } else {
-            return resp.data;
-          }
-        });
+      if (artistInfo === undefined) {
+        return $http({
+            method: 'GET',
+            url: '/myartists',
+            params: {
+              location: locationData
+            }
+          })
+          .then(function(resp) {
+            if (resp.data === "go to login") {
+              $location.path('/loginpage');
+            } else {
+              artistInfo = removeDuplicates(resp.data);
+              return artistInfo;
+            }
+          });
+      } else {
+        return Promise.resolve(artistInfo);
+      }
     };
     var getSimilar = function(artistID) {
       return $http({

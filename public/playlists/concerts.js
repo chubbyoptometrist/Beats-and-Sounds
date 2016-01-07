@@ -1,5 +1,5 @@
 angular.module('beatssounds.concerts', ['ui.bootstrap'])
-  .controller('concertsController', function ($scope, auth, time, space) {
+  .controller('concertsController', function($scope, auth, time, space) {
 
     $scope.parseMonth = function(date) {
       return time.parseMonth(date);
@@ -20,10 +20,13 @@ angular.module('beatssounds.concerts', ['ui.bootstrap'])
       return event.myCount > 5 ? 'favorite' : '';
     }
 
-    $scope.loadData = function (resp) {
+    $scope.loadData = function(resp) {
       $scope.data = resp;
       $scope.paginate();
       $scope.isLoading = false;
+      if (!$scope.$$phase) {
+        $scope.$apply();
+      }
     };
 
     /// GET BASED ON PLAYLISTS ===============================
@@ -43,9 +46,9 @@ angular.module('beatssounds.concerts', ['ui.bootstrap'])
     };
 
     /// GET BASED ON SIMILAR ARTISTS ========================
-    $scope.getSimilar = function (artistID) {
+    $scope.getSimilar = function(artistID) {
       $scope.isLoading = true;
-      auth.getSimilar(artistID).then (function (resp) {
+      auth.getSimilar(artistID).then(function(resp) {
         $scope.loadData(resp);
       })
     };
@@ -64,16 +67,16 @@ angular.module('beatssounds.concerts', ['ui.bootstrap'])
     $scope.currentPage = 1;
 
 
-    $scope.paginate = function () {
+    $scope.paginate = function() {
       $scope.totalItems = $scope.data.length;
       $scope.$watch('currentPage + itemsPerPage', function() {
         var begin = (($scope.currentPage - 1) * $scope.itemsPerPage);
         var end = begin + $scope.itemsPerPage;
         $scope.filteredEvents = $scope.data.slice(begin, end);
-      
+
         var counter = $scope.data.length / $scope.itemsPerPage;
         if ($scope.currentPage <= counter) {
-          $scope.showing = $scope.itemsPerPage*$scope.currentPage;
+          $scope.showing = $scope.itemsPerPage * $scope.currentPage;
         } else {
           $scope.showing = $scope.data.length;
         }
